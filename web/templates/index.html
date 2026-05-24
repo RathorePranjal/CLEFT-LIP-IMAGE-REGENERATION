@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CleftGen.ai - Cleft Lip Regeneration</title>
+    <link rel="stylesheet" href="{{ url_for('static', path='styles.css') }}" />
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar">
+      <div class="nav-container">
+        <div class="logo">
+          <span class="logo-text">CleftGen.ai</span>
+        </div>
+        <ul class="nav-menu">
+          <li><a href="#regeneration" class="nav-link">Regeneration</a></li>
+          <li><a href="#vision" class="nav-link">Our Vision</a></li>
+          <li><a href="#contact" class="nav-link">Contact Us</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="page-content">
+      <!-- Regeneration Section -->
+      <section id="regeneration" class="content-section">
+        <div class="container">
+          <h1 class="section-title">Cleft Lip Regeneration</h1>
+          <p class="section-subtitle">Upload a face photo and mark the area to regenerate using our AI-powered technology</p>
+          
+          <div class="main-grid">
+            <div class="panel upload-panel">
+              <form id="inpaint-form">
+                <label>
+                  <span class="label-text">Upload Face Image</span>
+                  <input type="file" id="image-input" name="image" accept="image/*" required />
+                </label>
+                
+                <div class="mask-section">
+                  <div class="mask-controls">
+                    <span class="label-text">Mark Area to Regenerate</span>
+                    <div class="brush-controls">
+                      <label class="brush-size-label">
+                        Brush Size:
+                        <input type="range" id="brush-size" min="5" max="50" value="20" />
+                        <span id="brush-size-value">20</span>
+                      </label>
+                      <button type="button" id="clear-mask" class="btn-secondary">Clear Mask</button>
+                      <button type="button" id="fill-white" class="btn-secondary">Fill White</button>
+                      <button type="button" id="fill-black" class="btn-secondary">Fill Black</button>
+                    </div>
+                  </div>
+                  <div class="canvas-container">
+                    <canvas id="mask-canvas"></canvas>
+                    <div class="canvas-overlay">
+                      <p class="canvas-hint">Draw on the image to mark the area (white = regenerate, black = keep)</p>
+                    </div>
+                  </div>
+                  <input type="file" id="mask-input" name="mask" accept="image/*" style="display: none;" />
+                </div>
+                
+                <button type="submit" id="submit-btn" class="btn-primary">
+                  <span id="btn-text">Regenerate</span>
+                  <span id="btn-spinner" class="spinner hidden"></span>
+                </button>
+              </form>
+            </div>
+
+            <div class="panel results-panel">
+              <h2>Results</h2>
+              <div id="result-area" class="comparison-container">
+                <div class="comparison-item">
+                  <h3>Before</h3>
+                  <div class="image-wrapper">
+                    <img id="before-img" alt="Original image" class="hidden" />
+                    <div id="placeholder-before" class="placeholder">Original image will appear here</div>
+                  </div>
+                </div>
+                <div class="comparison-item">
+                  <h3>After</h3>
+                  <div class="image-wrapper">
+                    <img id="result-img" alt="Regenerated output" class="hidden" />
+                    <div id="placeholder-after" class="placeholder">Click "Regenerate" to see the result</div>
+                  </div>
+                </div>
+              </div>
+              <div id="download-section" class="hidden">
+                <a id="download-link" class="btn-download" download="regenerated.png">
+                  ⬇ Download Result
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Vision Section -->
+      <section id="vision" class="content-section vision-section">
+        <div class="container">
+          <h2 class="section-title">Our Vision</h2>
+          <p class="vision-text">
+            At CleftGen.ai, we envision a world where advanced AI technology makes medical image reconstruction 
+            accessible to everyone. Our deep learning models, trained on extensive datasets, enable precise and 
+            realistic facial feature regeneration. We combine cutting-edge neural networks with medical imaging 
+            expertise to provide tools that assist healthcare professionals and empower individuals seeking 
+            reconstructive solutions.
+          </p>
+        </div>
+      </section>
+
+
+      <!-- Contact Section -->
+      <section id="contact" class="content-section contact-section">
+        <div class="container">
+          <h2 class="section-title">Contact Us</h2>
+          <div class="contact-grid">
+            <div class="contact-info">
+              <h3>Get in Touch</h3>
+              <p>Have questions about our technology or need support? We're here to help.</p>
+              <div class="contact-details">
+                <p><strong>Email:</strong> contact@cleftgenai.com</p>
+                <p><strong>Support:</strong> support@cleftgenai.com</p>
+                <p><strong>Research Inquiries:</strong> research@cleftgenai.com</p>
+              </div>
+            </div>
+            <div class="contact-form-container">
+              <form class="contact-form">
+                <input type="text" placeholder="Your Name" required />
+                <input type="email" placeholder="Your Email" required />
+                <textarea placeholder="Your Message" rows="5" required></textarea>
+                <button type="submit" class="btn-primary">Send Message</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer-container">
+        <div class="footer-content">
+          <div class="footer-section">
+            <h4>CleftGen.ai</h4>
+            <p>Advanced AI-powered facial reconstruction technology for medical imaging applications.</p>
+          </div>
+          <div class="footer-section">
+            <h4>Technology</h4>
+            <ul>
+              <li>Deep Learning Models</li>
+              <li>U-Net Architecture</li>
+              <li>Perceptual Loss Functions</li>
+              <li>Mask-Aware Inpainting</li>
+            </ul>
+          </div>
+          <div class="footer-section">
+            <h4>Applications</h4>
+            <ul>
+              <li>Medical Imaging</li>
+              <li>Facial Reconstruction</li>
+              <li>Research & Development</li>
+              <li>Clinical Support Tools</li>
+            </ul>
+          </div>
+          <div class="footer-section">
+            <h4>Resources</h4>
+            <ul>
+              <li><a href="#vision">Our Vision</a></li>
+              <li><a href="#contact">Contact</a></li>
+              <li><a href="#regeneration">Try It Now</a></li>
+              <li>Documentation</li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>&copy; 2025 CleftGen.ai. All rights reserved. | Powered by PyTorch & FastAPI</p>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      const form = document.getElementById("inpaint-form");
+      const imageInput = document.getElementById("image-input");
+      const maskInput = document.getElementById("mask-input");
+      const maskCanvas = document.getElementById("mask-canvas");
+      const ctx = maskCanvas.getContext("2d");
+      const brushSizeInput = document.getElementById("brush-size");
+      const brushSizeValue = document.getElementById("brush-size-value");
+      const clearMaskBtn = document.getElementById("clear-mask");
+      const fillWhiteBtn = document.getElementById("fill-white");
+      const fillBlackBtn = document.getElementById("fill-black");
+      const submitBtn = document.getElementById("submit-btn");
+      const btnText = document.getElementById("btn-text");
+      const btnSpinner = document.getElementById("btn-spinner");
+      const beforeImg = document.getElementById("before-img");
+      const resultImg = document.getElementById("result-img");
+      const downloadLink = document.getElementById("download-link");
+      const downloadSection = document.getElementById("download-section");
+      const placeholderBefore = document.getElementById("placeholder-before");
+      const placeholderAfter = document.getElementById("placeholder-after");
+
+      let isDrawing = false;
+      let currentBrushSize = 20;
+      let originalImage = null;
+
+      // Smooth scroll for navigation
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute('href'));
+          if (target) {
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        });
+      });
+
+      // Update brush size display
+      brushSizeInput.addEventListener("input", (e) => {
+        currentBrushSize = parseInt(e.target.value);
+        brushSizeValue.textContent = currentBrushSize;
+      });
+
+      // Load image when selected
+      imageInput.addEventListener("change", (e) => {
+        const file = e.target.files[0];
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = (event) => {
+            const img = new Image();
+            img.onload = () => {
+              originalImage = img;
+              maskCanvas.width = img.width;
+              maskCanvas.height = img.height;
+              ctx.drawImage(img, 0, 0);
+              ctx.globalCompositeOperation = "source-over";
+              ctx.fillStyle = "black";
+              ctx.fillRect(0, 0, maskCanvas.width, maskCanvas.height);
+              ctx.globalAlpha = 0.3;
+              ctx.drawImage(img, 0, 0);
+              ctx.globalAlpha = 1.0;
+              beforeImg.src = event.target.result;
+              beforeImg.classList.remove("hidden");
+              placeholderBefore.classList.add("hidden");
+              
+              const aspectRatio = img.width / img.height;
+              const beforeWrapper = beforeImg.closest('.image-wrapper');
+              const afterWrapper = document.querySelector('#result-img').closest('.image-wrapper');
+              if (beforeWrapper) {
+                beforeWrapper.style.aspectRatio = aspectRatio.toString();
+              }
+              if (afterWrapper) {
+                afterWrapper.style.aspectRatio = aspectRatio.toString();
+              }
+              
+              resultImg.classList.add("hidden");
+              downloadSection.classList.add("hidden");
+              placeholderAfter.textContent = "Click 'Regenerate' to see the result";
+              placeholderAfter.classList.remove("hidden");
+            };
+            img.src = event.target.result;
+          };
+          reader.readAsDataURL(file);
+        }
+      });
+
+      function getMousePos(e) {
+        const rect = maskCanvas.getBoundingClientRect();
+        const scaleX = maskCanvas.width / rect.width;
+        const scaleY = maskCanvas.height / rect.height;
+        return {
+          x: (e.clientX - rect.left) * scaleX,
+          y: (e.clientY - rect.top) * scaleY
+        };
+      }
+
+      function draw(e) {
+        if (!isDrawing) return;
+        const pos = getMousePos(e);
+        ctx.globalCompositeOperation = "source-over";
+        ctx.fillStyle = "white";
+        ctx.beginPath();
+        ctx.arc(pos.x, pos.y, currentBrushSize / 2, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      maskCanvas.addEventListener("mousedown", (e) => {
+        isDrawing = true;
+        draw(e);
+      });
+
+      maskCanvas.addEventListener("mousemove", draw);
+      maskCanvas.addEventListener("mouseup", () => { isDrawing = false; });
+      maskCanvas.addEventListener("mouseleave", () => { isDrawing = false; });
+
+      maskCanvas.addEventListener("touchstart", (e) => {
+        e.preventDefault();
+        isDrawing = true;
+        const touch = e.touches[0];
+        const mouseEvent = new MouseEvent("mousedown", {
+          clientX: touch.clientX,
+          clientY: touch.clientY
+        });
+        draw(mouseEvent);
+      });
+
+      maskCanvas.addEventListener("touchmove", (e) => {
+        e.preventDefault();
+        const touch = e.touches[0];
+        const mouseEvent = new MouseEvent("mousemove", {
+          clientX: touch.clientX,
+          clientY: touch.clientY
+        });
+        draw(mouseEvent);
+      });
+
+      maskCanvas.addEventListener("touchend", () => { isDrawing = false; });
+
+      clearMaskBtn.addEventListener("click", () => {
+        if (originalImage) {
+          ctx.fillStyle = "black";
+          ctx.fillRect(0, 0, maskCanvas.width, maskCanvas.height);
+          ctx.globalAlpha = 0.3;
+          ctx.drawImage(originalImage, 0, 0);
+          ctx.globalAlpha = 1.0;
+        }
+      });
+
+      fillWhiteBtn.addEventListener("click", () => {
+        ctx.fillStyle = "white";
+        ctx.fillRect(0, 0, maskCanvas.width, maskCanvas.height);
+        if (originalImage) {
+          ctx.globalAlpha = 0.3;
+          ctx.drawImage(originalImage, 0, 0);
+          ctx.globalAlpha = 1.0;
+        }
+      });
+
+      fillBlackBtn.addEventListener("click", () => {
+        ctx.fillStyle = "black";
+        ctx.fillRect(0, 0, maskCanvas.width, maskCanvas.height);
+        if (originalImage) {
+          ctx.globalAlpha = 0.3;
+          ctx.drawImage(originalImage, 0, 0);
+          ctx.globalAlpha = 1.0;
+        }
+      });
+
+      form.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        maskCanvas.toBlob((blob) => {
+          const maskFile = new File([blob], "mask.png", { type: "image/png" });
+          const dataTransfer = new DataTransfer();
+          dataTransfer.items.add(maskFile);
+          maskInput.files = dataTransfer.files;
+          submitForm();
+        }, "image/png");
+      });
+
+      async function submitForm() {
+        const data = new FormData(form);
+        resultImg.classList.add("hidden");
+        downloadSection.classList.add("hidden");
+        placeholderAfter.textContent = "Processing... Please wait";
+        placeholderAfter.classList.remove("hidden");
+        submitBtn.disabled = true;
+        btnText.textContent = "Processing...";
+        btnSpinner.classList.remove("hidden");
+
+        try {
+          const response = await fetch("/api/inpaint", {
+            method: "POST",
+            body: data,
+          });
+
+          if (!response.ok) {
+            const err = await response.json();
+            throw new Error(err.detail || "Request failed");
+          }
+
+          const payload = await response.json();
+          resultImg.src = payload.image;
+          resultImg.classList.remove("hidden");
+          placeholderAfter.classList.add("hidden");
+          downloadLink.href = payload.image;
+          downloadSection.classList.remove("hidden");
+        } catch (error) {
+          placeholderAfter.textContent = "Error occurred. Please try again.";
+          alert("Error: " + error.message);
+        } finally {
+          submitBtn.disabled = false;
+          btnText.textContent = "Regenerate";
+          btnSpinner.classList.add("hidden");
+        }
+      }
+
+      // Contact form handler
+      document.querySelector('.contact-form')?.addEventListener('submit', (e) => {
+        e.preventDefault();
+        alert('Thank you for your message! We will get back to you soon.');
+        e.target.reset();
+      });
+    </script>
+  </body>
+</html>
